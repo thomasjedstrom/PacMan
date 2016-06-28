@@ -137,44 +137,64 @@ document.onkeydown = function(e){
         displayScore();
     }
     displayPacman()
+    checkend()
 }
+
 
 
 //GHOST MOVEMENT
 function getRandom() {
     var random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    console.log($(random));
     return random;
 }
 
+var currentDirection = 1;
+
 function ghostMove(){
-//    var newDirection = getRandom();
-    var currentDirection = getRandom();
-//    
-////Left Stopper
-//    if(currentDirection == 1 && (world[ghost.y][ghost.x-1]==0 || world[ghost.y][ghost.x-1]==1 || world[ghost.y][ghost.x-1]==2 || world[ghost.y][ghost.x-1]==3 || world[ghost.y][ghost.x-1]==4 || world[ghost.y][ghost.x-1]==5 || world[ghost.y][ghost.x-1]==6 || world[ghost.y][ghost.x-1]==7 || world[ghost.y][ghost.x-1]==8)){
-//        currentDirection = newDirection;
-//    }
-//    
+    var newDirection = getRandom();
     
-    
-    
+//Left Right New Direction
+    if(
+        //If it's going right or left and up or down is available
+        ((currentDirection == 1 || currentDirection == 2) && (world[ghost.y+1][ghost.x]==9 || world[ghost.y+1][ghost.x]==10 || world[ghost.y+1][ghost.x]==11 || world[ghost.y+1][ghost.x]==12 || world[ghost.y-1][ghost.x]==9 || world[ghost.y-1][ghost.x]==10 || world[ghost.y-1][ghost.x]==11 || world[ghost.y-1][ghost.x]==12))
+        ||
+        //Or if it's going up or down and left or right is available
+        ((currentDirection == 3 || currentDirection == 4) && (world[ghost.y][ghost.x+1]==9 || world[ghost.y][ghost.x+1]==10 || world[ghost.y][ghost.x+1]==11 || world[ghost.y][ghost.x+1]==12 || world[ghost.y][ghost.x-1]==9 || world[ghost.y][ghost.x-1]==10 || world[ghost.y][ghost.x-1]==11 || world[ghost.y][ghost.x-1]==12))
+    ){
+        //Check to make sure it won't change direction to it's current direction
+        while(newDirection == currentDirection){
+            newDirection = getRandom();
+        }
+        //Change direction to a new direction
+        currentDirection = newDirection;
+    }
     
     if(currentDirection ==  1 && (world[ghost.y][ghost.x-1]==9 || world[ghost.y][ghost.x-1]==10 || world[ghost.y][ghost.x-1]==11 || world[ghost.y][ghost.x-1]==12)){
         ghost.x --;
-    } else if(currentDirection == 2 && (world[ghost.y][ghost.x+1]==9 || world[ghost.y][ghost.x+1]==10 || world[ghost.y][ghost.x+1]==11 || world[ghost.y][ghost.x+1]==12)){
+//        console.log("move left")
+    }else if(currentDirection == 2 && (world[ghost.y][ghost.x+1]==9 || world[ghost.y][ghost.x+1]==10 || world[ghost.y][ghost.x+1]==11 || world[ghost.y][ghost.x+1]==12)){
+//        console.log("move right")
         ghost.x ++;
-    } else if(currentDirection == 3 && (world[ghost.y-1][ghost.x]==9 || world[ghost.y-1][ghost.x]==10 || world[ghost.y-1][ghost.x]==11 || world[ghost.y-1][ghost.x]==12)){
+    }else if(currentDirection == 3 && (world[ghost.y-1][ghost.x]==9 || world[ghost.y-1][ghost.x]==10 || world[ghost.y-1][ghost.x]==11 || world[ghost.y-1][ghost.x]==12)){
+//        console.log("move up")
         ghost.y --;
-    } else if(currentDirection == 4 && (world[ghost.y+1][ghost.x]==9 || world[ghost.y+1][ghost.x]==10 || world[ghost.y+1][ghost.x]==11 || world[ghost.y+1][ghost.x]==12)){
+    }else if(currentDirection == 4 && (world[ghost.y+1][ghost.x]==9 || world[ghost.y+1][ghost.x]==10 || world[ghost.y+1][ghost.x]==11 || world[ghost.y+1][ghost.x]==12)){
+//        console.log("move down")
         ghost.y ++;
     }
-//    currentDirection = newDirection;
     displayGhost();   
 }
 
-
+//GHOST REFRESH
 setInterval(ghostMove, 500)
+
+
+//CHECK FOR GAME END
+function checkend(){
+    if((pacman.x == ghost.x) && (pacman.y == ghost.y)){
+        $('#gameover').css('display', 'inline-block');
+    }
+}
 
 
 
@@ -183,4 +203,8 @@ $(document).ready(function(){
     displayPacman();
     displayGhost();
     displayScore();
+    
+
+
+    
 })
