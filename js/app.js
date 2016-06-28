@@ -1,20 +1,20 @@
 //WORLD
 var world = [
-    [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-    [2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],
-    [2,1,2,2,2,2,2,2,2,1,2,1,2,2,2,2,2,2,2,1,2],
-    [2,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,2],
-    [2,1,2,4,2,2,2,2,2,1,2,1,2,2,2,2,2,4,2,1,2],
-    [2,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,2],
-    [2,1,2,2,2,2,2,2,2,1,2,1,2,2,2,2,2,2,2,1,2],
-    [2,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2],
-    [2,1,2,2,2,2,2,2,2,1,2,1,2,2,2,2,2,2,2,1,2],
-    [2,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,2],
-    [2,1,2,4,2,2,2,2,2,1,2,1,2,2,2,2,2,4,2,1,2],
-    [2,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,2],
-    [2,1,2,2,2,2,2,2,2,1,2,1,2,2,2,2,2,2,2,1,2],
-    [2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2],
-    [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 ],
+    [0, 9, 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0 ],
+    [0, 10,1, 0, 0, 0, 0, 0, 6, 10,5, 10,8, 0, 0, 0, 0, 0, 2, 10,0 ],
+    [0, 10,0, 10,10,10,10,10,10,10,0, 10,10,10,10,10,10,10,0, 10,0 ],
+    [0, 10,0, 11,8, 0, 0, 0, 6, 10,0, 10,8, 0, 0, 0, 6, 11,0, 10,0 ],
+    [0, 10,0, 10,10,10,10,10,10,10,0, 10,10,10,10,10,10,10,0, 10,0 ],
+    [0, 10,4, 0, 0, 0, 0, 0, 6, 10,0, 10,8, 0, 0, 0, 0, 0, 3, 10,0 ],
+    [0, 10,10,10,10,10,10,10,10,10,0, 10,10,10,10,10,10,10,10,10,0 ],
+    [0, 10,1, 0, 0, 0, 0, 0, 6, 10,0, 10,8, 0, 0, 0, 0, 0, 2, 10,0 ],
+    [0, 10,0, 10,10,10,10,10,10,10,0, 10,10,10,10,10,10,10,0, 10,0 ],
+    [0, 10,0, 11,8, 0, 0, 0, 6, 10,0, 10,8, 0, 0, 0, 6, 11,0, 10,0 ],
+    [0, 10,0, 10,10,10,10,10,10,10,0, 10,10,10,10,10,10,10,0, 10,0 ],
+    [0, 10,4, 0, 0, 0, 0, 0, 6, 10,7, 10,8, 0, 0, 0, 0, 0, 3, 10,0 ],
+    [0, 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,0 ],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 ]
 ]
 
 //PACMAN
@@ -23,8 +23,13 @@ var pacman = {
     y: 1
 }
 
+var ghost = {
+    x: 19,
+    y: 13
+}
+
 //SCORE
-var score = 0;
+var score = 0 ;
 
 //DISPLAY WORLD
 function displayWorld(){
@@ -32,17 +37,32 @@ function displayWorld(){
     for(var i=0; i<world.length; i++){
         output += "\n<div class='row'>\n"
         for(var j=0; j<world[i].length; j++){
-            if(world[i][j] == 5)
-                output += "<div id='ghost'></div>";
-            else if(world[i][j] == 4)
-                output += "<div class='cherries'></div>";
-            else if(world[i][j] == 2)
+//            BRICKS
+            if(world[i][j] == 0)
                 output += "<div class='brick'></div>";
             else if(world[i][j] == 1)
-                output += "<div class='coin'></div>";
-            else if(world[i][j] == 0)
+                output += "<div class='brick lefttop'></div>";
+            else if(world[i][j] == 2)
+                output += "<div class='brick righttop'></div>";
+            else if(world[i][j] == 3)
+                output += "<div class='brick rightbottom'></div>";
+            else if(world[i][j] == 4)
+                output += "<div class='brick leftbottom'></div>";
+            else if(world[i][j] == 5)
+                output += "<div class='brick top'></div>";
+            else if(world[i][j] == 6)
+                output += "<div class='brick right'></div>";
+            else if(world[i][j] == 7)
+                output += "<div class='brick bottom'></div>";
+            else if(world[i][j] == 8)
+                output += "<div class='brick left'></div>";
+//            DYNAMIC CONTENT
+            else if(world[i][j] == 9)
                 output += "<div class='empty'></div>";    
-            //output = output + world[i][j];
+            else if(world[i][j] == 10)
+                output += "<div class='coin'></div>";
+            else if(world[i][j] == 11)
+                output += "<div class='cherries'></div>";
         }
         output += "\n</div>"
     }
@@ -54,6 +74,13 @@ function displayPacman(){
     document.getElementById('pacman').style.left = pacman.x*20+"px";
     document.getElementById('pacman').style.top = pacman.y*20+"px";
 }
+//DISPLAY GHOST
+function displayGhost(){
+    document.getElementById('ghost').style.left = ghost.x*20+"px";
+    document.getElementById('ghost').style.top = ghost.y*20+"px";
+}
+
+
 
 //DISPLAY SCORE
 function displayScore(){
@@ -64,7 +91,7 @@ function displayScore(){
 //PACMAN MOVEMENT
 document.onkeydown = function(e){
 //LEFT
-    if(e.keyCode == 37 && world[pacman.y][pacman.x-1]!=2){
+    if(e.keyCode == 37 && (world[pacman.y][pacman.x-1]==9 || world[pacman.y][pacman.x-1]==10 || world[pacman.y][pacman.x-1]==11)){
         $('#pacman').removeClass('right');
         $('#pacman').removeClass('up');
         $('#pacman').removeClass('down');
@@ -72,7 +99,7 @@ document.onkeydown = function(e){
         pacman.x --;
     }
 //RIGHT
-    else if(e.keyCode == 39 && world[pacman.y][pacman.x+1]!=2){
+    else if(e.keyCode == 39 && (world[pacman.y][pacman.x+1]==9 || world[pacman.y][pacman.x+1]==10 || world[pacman.y][pacman.x+1]==11)){
         $('#pacman').removeClass('left');
         $('#pacman').removeClass('up');
         $('#pacman').removeClass('down');
@@ -80,7 +107,7 @@ document.onkeydown = function(e){
         pacman.x ++;
     }
 //DOWN
-    else if(e.keyCode == 38 && world[pacman.y-1][pacman.x]!=2){
+    else if(e.keyCode == 38 && (world[pacman.y-1][pacman.x]==9 || world[pacman.y-1][pacman.x]==10 || world[pacman.y-1][pacman.x]==11)){
         $('#pacman').removeClass('right');
         $('#pacman').removeClass('up');
         $('#pacman').removeClass('left');
@@ -88,38 +115,72 @@ document.onkeydown = function(e){
         pacman.y --;
     }
 //UP
-    else if(e.keyCode == 40 && world[pacman.y+1][pacman.x]!=2){
+    else if(e.keyCode == 40 && (world[pacman.y+1][pacman.x]==9 || world[pacman.y+1][pacman.x]==10 || world[pacman.y+1][pacman.x]==11)){
         $('#pacman').removeClass('right');
         $('#pacman').removeClass('left');
         $('#pacman').removeClass('down');
         $('#pacman').addClass('up');
         pacman.y ++;
-    }
-    
+    }    
 //PACMAN SCORING COINS
-    if(world[pacman.y][pacman.x] == 1){
-        world[pacman.y][pacman.x] = 0;
+    if(world[pacman.y][pacman.x] == 10){
+        world[pacman.y][pacman.x] = 9;
         score+=10;
         displayWorld();
         displayScore();
     }
 //PACMAN SCORING CHERRIES
-    if(world[pacman.y][pacman.x] == 4){
-        world[pacman.y][pacman.x] = 0;
+    if(world[pacman.y][pacman.x] == 11){
+        world[pacman.y][pacman.x] = 9;
         score+=50;
         displayWorld();
         displayScore();
     }
-    
-    
     displayPacman()
 }
+
+
+//GHOST MOVEMENT
+function getRandom() {
+    var random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    console.log($(random));
+    return random;
+}
+
+function ghostMove(){
+//    var newDirection = getRandom();
+    var currentDirection = getRandom();
+//    
+////Left Stopper
+//    if(currentDirection == 1 && (world[ghost.y][ghost.x-1]==0 || world[ghost.y][ghost.x-1]==1 || world[ghost.y][ghost.x-1]==2 || world[ghost.y][ghost.x-1]==3 || world[ghost.y][ghost.x-1]==4 || world[ghost.y][ghost.x-1]==5 || world[ghost.y][ghost.x-1]==6 || world[ghost.y][ghost.x-1]==7 || world[ghost.y][ghost.x-1]==8)){
+//        currentDirection = newDirection;
+//    }
+//    
+    
+    
+    
+    
+    if(currentDirection ==  1 && (world[ghost.y][ghost.x-1]==9 || world[ghost.y][ghost.x-1]==10 || world[ghost.y][ghost.x-1]==11 || world[ghost.y][ghost.x-1]==12)){
+        ghost.x --;
+    } else if(currentDirection == 2 && (world[ghost.y][ghost.x+1]==9 || world[ghost.y][ghost.x+1]==10 || world[ghost.y][ghost.x+1]==11 || world[ghost.y][ghost.x+1]==12)){
+        ghost.x ++;
+    } else if(currentDirection == 3 && (world[ghost.y-1][ghost.x]==9 || world[ghost.y-1][ghost.x]==10 || world[ghost.y-1][ghost.x]==11 || world[ghost.y-1][ghost.x]==12)){
+        ghost.y --;
+    } else if(currentDirection == 4 && (world[ghost.y+1][ghost.x]==9 || world[ghost.y+1][ghost.x]==10 || world[ghost.y+1][ghost.x]==11 || world[ghost.y+1][ghost.x]==12)){
+        ghost.y ++;
+    }
+//    currentDirection = newDirection;
+    displayGhost();   
+}
+
+
+setInterval(ghostMove, 500)
 
 
 
 $(document).ready(function(){
     displayWorld();
     displayPacman();
+    displayGhost();
     displayScore();
-
 })

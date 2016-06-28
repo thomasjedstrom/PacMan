@@ -15,9 +15,42 @@ div.row div{
     display: inline-block;
     margin: 0px;
 }
+
+/*BRICKS*/
 div.brick{
     background-color: blue;
 }
+div.left{
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+div.right{
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+div.top{
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+}
+div.bottom{
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+div.lefttop{
+    border-top-left-radius: 100%;
+}
+div.leftbottom{
+    border-bottom-left-radius: 100%;
+}
+div.righttop{
+    border-top-right-radius: 100%;
+}
+div.rightbottom{
+    border-bottom-right-radius: 100%;
+}
+
+
+/*DYNAMIC CONTENT*/
 div.coin{
     background-image: url(../img/coin.gif);
     background-repeat: no-repeat;
@@ -31,12 +64,23 @@ div.cherries{
     background-size: cover;    
 }
 
+
 /*PACMAN*/
 div#pacman{
     background-image: url(../img/pacman.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+/*GHOST*/
+div#ghost{
+    background-image: url(../img/ghost.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     width: 20px;
     height: 20px;
     position: absolute;
@@ -53,22 +97,13 @@ div#score{
     top: 10px;
     left: 450px;
 }
-/*GHOST*/
-div#ghost{
-    background-image: url(../img/ghost.gif);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    width: 20px;
-    height: 20px;
-
-}
 
 /*PACMAN MOVEMENTS*/
 .down{
     -ms-transform: rotate(-90deg); /* IE 9 */
     -webkit-transform: rotate(-90deg); /* Safari */
     transform: rotate(-90deg);
+    
 }
 .up{
     -ms-transform: rotate(90deg); /* IE 9 */
