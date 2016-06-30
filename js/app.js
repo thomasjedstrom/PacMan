@@ -192,7 +192,7 @@ setInterval(ghostMove, 500)
 //CHECK FOR GAME END
 function checkend(){
     if((pacman.x == ghost.x) && (pacman.y == ghost.y)){
-        $('#gameover').css('display', 'inline-block');
+        $('#gameover').fadeIn();
     }
 }
 
